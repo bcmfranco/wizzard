@@ -120,6 +120,10 @@ const calculateTotalSum = () => {
     max-width: 600px;
     margin: 2rem auto;
     position: relative;
+    background: inherit; /* Updated lighter green background */
+    padding: 2rem;
+    border-radius: 12px;
+    min-height: 400px;
 }
 
 .card {
@@ -145,8 +149,8 @@ const calculateTotalSum = () => {
 
 button {
     background-color: white;
-    color: #4CAF50;
-    border: 1px solid #4CAF50;
+    color: #00845c;
+    border: 1px solid #00845c;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     padding: 0.5rem 1rem;
     border-radius: 4px;
@@ -276,7 +280,7 @@ button:hover {
 .progress-bar {
     width: 100%;
     height: 6px;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: inherit;
     border-radius: 3px;
     margin-bottom: 2rem;
     overflow: hidden;
@@ -284,7 +288,7 @@ button:hover {
 
 .progress-fill {
     height: 100%;
-    background-color: #8bdc65;
+    background-color: white;
     transition: width 0.3s ease;
 }
 </style>
