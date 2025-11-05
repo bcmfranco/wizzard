@@ -52,13 +52,10 @@
             <!-- Summary card content -->
             <template v-else-if="question.type === 'summary'">
                 <h2 class="summary-title">{{ question.title }}</h2>
-                <p class="summary-content">{{ question.content }}</p>
-                <div class="summary-answers">
                     <div class="total-sum">
                         <strong>Story Points:</strong>
                         <span>{{ calculateTotalSum() }}</span>
                     </div>
-                </div>
             </template>
         </div>
     </div>
@@ -226,13 +223,29 @@ button:hover {
 .total-sum {
     background: rgba(255, 255, 255, 0.1);
     border: 2px solid white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    aspect-ratio: 4/3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem auto;
+    max-width: 300px;
 }
 
 .total-sum strong {
     color: white;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
 }
 
 .total-sum span {
     color: white;
+    font-size: 3.5rem;
+    font-weight: bold;
+    line-height: 1;
 }
 </style>

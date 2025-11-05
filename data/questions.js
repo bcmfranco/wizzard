@@ -74,7 +74,7 @@ export const wizardQuestions = [
     {
         id: 10,
         type: 'summary',
-        title: "Resumen de tus respuestas",
+        title: "",
         showPrevious: false,
         showNext: false,
         answers: []
