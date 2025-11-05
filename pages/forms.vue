@@ -63,10 +63,18 @@
             <!-- Summary card content -->
             <template v-else-if="question.type === 'summary'">
                 <h2 class="summary-title">{{ question.title }}</h2>
-                    <div class="total-sum">
-                        <strong>Story Points:</strong>
-                        <span>{{ calculateTotalSum() }}</span>
-                    </div>
+                <div class="total-sum">
+                    <strong>Story Points:</strong>
+                    <span>{{ calculateTotalSum() }}</span>
+                </div>
+                <div class="button-container">
+                    <button 
+                        class="refresh-button"
+                        @click="refreshForm"
+                    >
+                        Realizar nuevamente
+                    </button>
+                </div>
             </template>
         </div>
     </div>
@@ -112,6 +120,12 @@ const isQuestionAnswered = (questionId) => {
 const calculateTotalSum = () => {
     return Object.values(selectedAnswers)
         .reduce((sum, answer) => sum + Number(answer), 0)
+}
+
+const refreshForm = () => {
+    // Reset all form data
+    currentCard.value = 1
+    Object.keys(selectedAnswers).forEach(key => delete selectedAnswers[key])
 }
 </script>
 
@@ -296,5 +310,19 @@ button:hover {
     height: 100%;
     background-color: white;
     transition: width 0.3s ease;
+}
+
+.refresh-button {
+    background-color: #006647 !important;
+    color: white !important;
+    border: none !important;
+    padding: 0.8rem 1.5rem !important;
+    font-size: 1rem;
+    margin-top: 2rem;
+}
+
+.refresh-button:hover {
+    background-color: #007857 !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
 }
 </style>
