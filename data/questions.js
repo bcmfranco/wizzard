@@ -73,17 +73,8 @@ export const wizardQuestions = [
     },
     {
         id: 10,
-        title: "Tarjeta Final",
-        content: "¿Te gustaría aprender más sobre programación?",
-        showPrevious: true,
-        showNext: true,
-        answers: ["3", "5", "8"]
-    },
-    {
-        id: 11,
         type: 'summary',
         title: "Resumen de tus respuestas",
-        content: "¡Gracias por completar el formulario!",
         showPrevious: false,
         showNext: false,
         answers: []

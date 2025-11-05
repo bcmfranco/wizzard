@@ -52,12 +52,8 @@
                 <h2 class="summary-title">{{ question.title }}</h2>
                 <p class="summary-content">{{ question.content }}</p>
                 <div class="summary-answers">
-                    <div v-for="(answer, qId) in selectedAnswers" :key="qId" class="summary-answer">
-                        <strong>{{ questions.find(q => q.id === Number(qId))?.content }}:</strong>
-                        <span>{{ answer }}</span>
-                    </div>
                     <div class="total-sum">
-                        <strong>Suma total de respuestas:</strong>
+                        <strong>Story Points:</strong>
                         <span>{{ calculateTotalSum() }}</span>
                     </div>
                 </div>
@@ -236,13 +232,14 @@ button:hover {
     display: block;
     margin-bottom: 0.5rem;
     color: #2c3e50;
-    font-size: 1rem;
+    font-size: 2rem;
 }
 
 .total-sum span {
     font-size: 1rem;
     color: #4CAF50;
     font-weight: bold;
+    font-size: 3rem;
 }
 
 .button-container button:first-child {
