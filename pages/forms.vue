@@ -145,17 +145,17 @@ button:hover {
 
 .question-content {
     color: white;
-    margin-bottom: 1rem;
-    font-size: 1rem;
+    margin: 0px;
+    font-size: 22px;
     font-weight: 600;
 }
 
 .question-title {
     color: white;
-    line-height: 1.5;
-    font-size: 1rem;
+    line-height: 14px;
+    font-size: 14px;
     font-weight: normal;
-    margin-bottom: 1.5rem;
+    margin: 10px 0px;
 }
 
 .answers-container {
