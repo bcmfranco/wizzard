@@ -1,75 +1,75 @@
 export const wizardQuestions = [
     {
         id: 1,
-        title: "Tarjeta 1",
-        content: "¿Cuál es tu nivel de experiencia en programación?",
+        title: "Complejidad",
+        content: "¿El equipo tiene experiencia en desarrollos similares?",
         showPrevious: false,
         showNext: true,
         answers: ["3", "5", "8"]
     },
     {
         id: 2,
-        title: "Tarjeta 2",
-        content: "¿Qué lenguaje de programación prefieres?",
+        title: "Complejidad",
+        content: "¿Implica la participación de varios equipos?",
         showPrevious: true,
         showNext: true,
         answers: ["3", "5", "8"]
     },
     {
         id: 3,
-        title: "Tarjeta 3",
-        content: "¿Cuántas horas programas al día?",
+        title: "Complejidad",
+        content: "¿Qué tan fácil será testear?",
         showPrevious: true,
         showNext: true,
         answers: ["3", "5", "8"]
     },
     {
         id: 4,
-        title: "Tarjeta 4",
-        content: "¿Qué área de programación te interesa más?",
+        title: "Complejidad",
+        content: "¿Involucra la conexión de varios de nuestros sistemas?",
         showPrevious: true,
         showNext: true,
         answers: ["3", "5", "8"]
     },
     {
         id: 5,
-        title: "Tarjeta 5",
-        content: "¿Qué framework web prefieres?",
+        title: "Complejidad",
+        content: "Qué tanto involucra a un proveedor externo?",
         showPrevious: true,
         showNext: true,
         answers: ["3", "5", "8"]
     },
     {
         id: 6,
-        title: "Tarjeta 6",
-        content: "¿Qué sistema operativo usas para programar?",
+        title: "Complejidad",
+        content: "¿Participan varias áreas del negocio?",
         showPrevious: true,
         showNext: true,
         answers: ["3", "5", "8"]
     },
     {
         id: 7,
-        title: "Tarjeta 7",
-        content: "¿Qué editor de código utilizas?",
+        title: "Complejidad",
+        content: "¿Qué tan complejas son las decisiones de negocio?",
         showPrevious: true,
         showNext: true,
         answers: ["3", "5", "8"]
     },
     {
         id: 8,
-        title: "Tarjeta 8",
-        content: "¿Qué tipo de aplicaciones desarrollas?",
+        title: "Criticidad",
+        content: "¿El solicitante es un usuario clave?",
         showPrevious: true,
         showNext: true,
-        answers: ["3", "5", "8"]
+        answers: ["13", "21", "34"]
     },
     {
         id: 9,
-        title: "Tarjeta 9",
-        content: "¿Trabajas en equipo o individualmente?",
+        title: "Criticidad",
+        content: "¿Hay una fecha impuesta?",
         showPrevious: true,
         showNext: true,
-        answers: ["3", "5", "8"]
+        answers: ["13", "21", "34"]
     },
     {
         id: 10,

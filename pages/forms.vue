@@ -105,6 +105,7 @@ const calculateTotalSum = () => {
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     display: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .card.active {
@@ -134,7 +135,7 @@ button:hover {
 .question-content {
     color: #333;
     margin-bottom: 1rem;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 600;
 }
 
@@ -197,14 +198,14 @@ button:hover {
 }
 
 .summary-title {
-    font-size: 1.8rem;
+    font-size: 1rem;
     font-weight: 700;
     margin-bottom: 1rem;
     color: #2c3e50;
 }
 
 .summary-content {
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin-bottom: 1.5rem;
     color: #34495e;
 }
@@ -235,11 +236,11 @@ button:hover {
     display: block;
     margin-bottom: 0.5rem;
     color: #2c3e50;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 .total-sum span {
-    font-size: 2rem;
+    font-size: 1rem;
     color: #4CAF50;
     font-weight: bold;
 }
