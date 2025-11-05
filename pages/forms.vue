@@ -1,12 +1,23 @@
 <template>
     <div class="wizard-container">
+        <!-- Progress bar -->
+        <div class="progress-bar">
+            <div 
+                class="progress-fill"
+                :style="{ 
+                    width: `${((Object.keys(selectedAnswers).length) / (questions.length - 1)) * 100}%` 
+                }"
+            ></div>
+        </div>
+
+        <!-- Cards -->
         <div 
             v-for="question in questions" 
             :key="question.id"
             class="card" 
             :class="{ 
                 active: currentCard === question.id,
-                'summary-card': question.type === 'summary'
+                'answered': isQuestionAnswered(question.id)
             }"
         >
             <!-- Regular card content -->
@@ -81,18 +92,26 @@ const previousCard = () => {
     }
 }
 
+const handleAnswerSelect = (question) => {
+    // Aseguramos que la respuesta se guarde antes de avanzar
+    setTimeout(() => {
+        if (selectedAnswers[question.id] && question.showNext) {
+            // Verificamos que estemos en la tarjeta correcta
+            if (currentCard.value === question.id) {
+                nextCard()
+            }
+        }
+    }, 200)
+}
+
+// Función para verificar si una pregunta fue respondida
+const isQuestionAnswered = (questionId) => {
+    return !!selectedAnswers[questionId]
+}
+
 const calculateTotalSum = () => {
     return Object.values(selectedAnswers)
         .reduce((sum, answer) => sum + Number(answer), 0)
-}
-
-const handleAnswerSelect = (question) => {
-    // Small delay to ensure the radio button value is updated
-    setTimeout(() => {
-        if (question.showNext) {
-            nextCard()
-        }
-    }, 200)
 }
 </script>
 
@@ -198,6 +217,11 @@ button:hover {
     background-color: #7ac554;
 }
 
+.card.answered .answer-option[data-selected="true"] {
+    background-color: #7ac554;
+    border-color: white;
+}
+
 .summary-card {
     background: #00986b;
     border: 1px solid white;
@@ -247,5 +271,20 @@ button:hover {
     font-size: 3.5rem;
     font-weight: bold;
     line-height: 1;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: #8bdc65;
+    transition: width 0.3s ease;
 }
 </style>
