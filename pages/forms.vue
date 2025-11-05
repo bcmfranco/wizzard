@@ -15,10 +15,12 @@
                 <h2 class="question-title">{{ question.title }}</h2>
                 
                 <div class="answers-container">
-                    <div 
+                    <label 
                         v-for="(answer, index) in question.answers" 
                         :key="index"
                         class="answer-option"
+                        :for="`answer-${question.id}-${index}`"
+                        @click="handleAnswerSelect(question)"
                     >
                         <input 
                             type="radio" 
@@ -27,8 +29,8 @@
                             :value="answer"
                             v-model="selectedAnswers[question.id]"
                         >
-                        <label :for="`answer-${question.id}-${index}`">{{ answer }}</label>
-                    </div>
+                        <span>{{ answer }}</span>
+                    </label>
                 </div>
 
                 <div class="button-container">
@@ -42,7 +44,7 @@
                         v-if="question.showNext"
                         @click="nextCard"
                     >
-                        Siguiente
+                        Saltear
                     </button>
                 </div>
             </template>
@@ -86,6 +88,15 @@ const calculateTotalSum = () => {
     return Object.values(selectedAnswers)
         .reduce((sum, answer) => sum + Number(answer), 0)
 }
+
+const handleAnswerSelect = (question) => {
+    // Small delay to ensure the radio button value is updated
+    setTimeout(() => {
+        if (question.showNext) {
+            nextCard()
+        }
+    }, 200)
+}
 </script>
 
 <style scoped>
@@ -96,12 +107,14 @@ const calculateTotalSum = () => {
 }
 
 .card {
-    background: white;
+    background: #00986b;
+    color: white;
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     display: none;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 1px solid white;
 }
 
 .card.active {
@@ -115,28 +128,30 @@ const calculateTotalSum = () => {
 }
 
 button {
+    background-color: white;
+    color: #4CAF50;
+    border: 1px solid #4CAF50;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     padding: 0.5rem 1rem;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .question-content {
-    color: #333;
+    color: white;
     margin-bottom: 1rem;
     font-size: 1rem;
     font-weight: 600;
 }
 
 .question-title {
-    color: #666;
+    color: white;
     line-height: 1.5;
     font-size: 1rem;
     font-weight: normal;
@@ -155,114 +170,69 @@ button:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.5rem;
-    border: 1px solid #ddd;
+    padding: 1rem;  /* Increased padding to accommodate larger text */
+    border: 1px solid white;
     border-radius: 4px;
     transition: all 0.3s ease;
+    cursor: pointer;
+    user-select: none;
+    background-color: #8bdc65; /* Botón de respuesta */
 }
 
 .answer-option:hover {
-    background-color: #f5f5f5;
+    background-color: #9de379;
 }
 
-.answer-option input[type="radio"] {
-    margin-right: 0.5rem;
-}
-
-.answer-option label {
-    cursor: pointer;
+.answer-option span {
     font-size: 1rem;
-    color: #444;
+    color: white;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.answer-option input[type="radio"]:checked + label {
-    color: #4CAF50;
+.answer-option input[type="radio"]:checked + span {
+    color: white;
     font-weight: 600;
 }
 
 .answer-option input[type="radio"]:checked ~ .answer-option {
-    border-color: #4CAF50;
-    background-color: #f0fff0;
+    border-color: white;
+    background-color: #7ac554;
 }
 
 .summary-card {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
+    background: #00986b;
+    border: 1px solid white;
 }
 
 .summary-title {
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: #2c3e50;
+    color: white;
 }
 
 .summary-content {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-    color: #34495e;
+    color: white;
 }
 
 .summary-answers {
-    margin-top: 1rem;
-    padding: 1rem;
-    background: #e8f5e9;
-    border-radius: 4px;
-    border: 2px solid #4CAF50;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid white;
 }
 
 .summary-answer {
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-    color: #333;
+    color: white;
 }
 
 .total-sum {
-    margin-top: 2rem;
-    padding: 1rem;
-    background: #e8f5e9;
-    border-radius: 4px;
-    border: 2px solid #4CAF50;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid white;
 }
 
 .total-sum strong {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #2c3e50;
-    font-size: 2rem;
+    color: white;
 }
 
 .total-sum span {
-    font-size: 1rem;
-    color: #4CAF50;
-    font-weight: bold;
-    font-size: 3rem;
-}
-
-.button-container button:first-child {
-    background-color: white;
-    color: #4CAF50;
-    border: 1px solid #4CAF50;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.button-container button:first-child:hover {
-    background-color: #f8f9fa;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.button-container button:last-child {
-    background-color: #4CAF50;
     color: white;
-    border: none;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-
-.button-container button:last-child:hover {
-    background-color: #45a049;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
 }
 </style>
