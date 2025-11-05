@@ -127,14 +127,14 @@ const calculateTotalSum = () => {
 }
 
 .card {
-    background: #00986b;
-    color: white;
+    background: white;
+    color: #006647;
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     display: none;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    border: 1px solid white;
+    border: 1px solid #006647;
 }
 
 .card.active {
@@ -164,14 +164,14 @@ button:hover {
 }
 
 .question-content {
-    color: white;
+    color: #006647;
     margin: 0px;
     font-size: 22px;
     font-weight: 600;
 }
 
 .question-title {
-    color: white;
+    color: #006647;
     line-height: 14px;
     font-size: 14px;
     font-weight: normal;
@@ -190,22 +190,28 @@ button:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem;  /* Increased padding to accommodate larger text */
-    border: 1px solid white;
+    padding: 0.5rem;
+    border: 1px solid #006647;
     border-radius: 4px;
     transition: all 0.3s ease;
     cursor: pointer;
     user-select: none;
-    background-color: #8bdc65; /* Botón de respuesta */
+    background-color: #006647;
+    min-height: 3rem;
+    transform: scale(1);
+    transform-origin: center;
 }
 
 .answer-option:hover {
-    background-color: #9de379;
+    background-color: #007857;
+    transform: scale(1.05);
+    z-index: 1;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .answer-option span {
-    font-size: 1rem;
     color: white;
+    font-size: 1rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -227,16 +233,16 @@ button:hover {
 }
 
 .summary-card {
-    background: #00986b;
-    border: 1px solid white;
+    background: white;
+    border: 1px solid #006647;
 }
 
 .summary-title {
-    color: white;
+    color: #006647;
 }
 
 .summary-content {
-    color: white;
+    color: #006647;
 }
 
 .summary-answers {
@@ -249,8 +255,8 @@ button:hover {
 }
 
 .total-sum {
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid white;
+    background: white;
+    border: 2px solid #006647;
     border-radius: 8px;
     padding: 1.5rem;
     aspect-ratio: 4/3;
@@ -263,7 +269,7 @@ button:hover {
 }
 
 .total-sum strong {
-    color: white;
+    color: #006647;
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -271,7 +277,7 @@ button:hover {
 }
 
 .total-sum span {
-    color: white;
+    color: #006647;
     font-size: 3.5rem;
     font-weight: bold;
     line-height: 1;
