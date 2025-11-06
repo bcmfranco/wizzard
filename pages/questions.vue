@@ -33,7 +33,7 @@
                 <input 
                     type="text" 
                     v-model="newQuestion"
-                    placeholder="Escriba una nueva pregunta..."
+                    placeholder="Escribí una nueva pregunta..."
                     @keyup.enter="addQuestion"
                     class="question-input"
                 >
