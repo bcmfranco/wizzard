@@ -1,5 +1,17 @@
 <template>
     <div class="questions-container">
+        <!-- Header input -->
+        <div class="header-section">
+            <label for="form-header">Encabezado del formulario:</label>
+            <input 
+                type="text" 
+                id="form-header"
+                v-model="formHeader"
+                placeholder="Ingrese el título o descripción inicial..."
+                class="header-input"
+            >
+        </div>
+
         <!-- Scale selector -->
         <div class="scale-selector">
             <label for="scale-type">Escala de respuestas:</label>
@@ -70,6 +82,7 @@ const newQuestion = ref('')
 const questions = ref([])
 const showNotification = ref(false)
 const selectedScale = ref('fibonacci')
+const formHeader = ref('')
 
 // Add scales object
 const scales = {
@@ -79,15 +92,19 @@ const scales = {
 }
 
 onMounted(() => {
-    // Load questions and scale from localStorage
+    // Load questions, scale and header from localStorage
     const savedQuestions = localStorage.getItem('wizardQuestions')
     const savedScale = localStorage.getItem('selectedScale')
+    const savedHeader = localStorage.getItem('formHeader')
     
     if (savedQuestions) {
         questions.value = JSON.parse(savedQuestions)
     }
     if (savedScale) {
         selectedScale.value = savedScale
+    }
+    if (savedHeader) {
+        formHeader.value = savedHeader
     }
 })
 
@@ -106,6 +123,7 @@ const saveQuestions = () => {
     localStorage.setItem('wizardQuestions', JSON.stringify(questions.value))
     localStorage.setItem('selectedScale', selectedScale.value)
     localStorage.setItem('scaleValues', JSON.stringify(scales[selectedScale.value]))
+    localStorage.setItem('formHeader', formHeader.value)
     showNotification.value = true
     setTimeout(() => {
         showNotification.value = false
@@ -119,6 +137,34 @@ const saveQuestions = () => {
     margin: 2rem auto;
     padding: 2rem;
     font-family: 'Montserrat', sans-serif;
+}
+
+.header-section {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.header-section label {
+    color: #006647;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.header-input {
+    padding: 0.8rem;
+    border: 2px solid #006647;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #006647;
+    width: 100%;
+}
+
+.header-input:focus {
+    outline: none;
+    border-color: #007857;
+    box-shadow: 0 0 0 2px rgba(0, 102, 71, 0.1);
 }
 
 .scale-selector {

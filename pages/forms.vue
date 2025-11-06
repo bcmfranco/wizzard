@@ -3,29 +3,32 @@
         <NuxtLink to="/questions" class="settings-button">
             ⚙️
         </NuxtLink>
-        
-        <!-- Progress bar -->
-        <div class="progress-bar">
-            <div 
-                class="progress-fill"
-                :style="{ 
-                    width: `${((Object.keys(selectedAnswers).length) / (questions.length - 1)) * 100}%` 
-                }"
-            ></div>
-        </div>
 
-        <!-- Cards -->
         <div 
             v-for="question in questions" 
             :key="question.id"
             class="card" 
             :class="{ 
                 active: currentCard === question.id,
-                'answered': isQuestionAnswered(question.id)
+                'answered': isQuestionAnswered(question.id),
+                'welcome-card': question.type === 'welcome'
             }"
         >
+            <!-- Welcome card content -->
+            <template v-if="question.type === 'welcome'">
+                <p class="question-content">{{ question.content }}</p>
+                <div class="button-container">
+                    <button 
+                        @click="currentCard++"
+                        class="start-button"
+                    >
+                        Comenzar
+                    </button>
+                </div>
+            </template>
+
             <!-- Regular card content -->
-            <template v-if="!question.type">
+            <template v-else-if="!question.type">
                 <p class="question-content">{{ question.content }}</p>
                 <h2 class="question-title">{{ question.title }}</h2>
                 
@@ -87,28 +90,38 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
 
-const currentCard = ref(1)
+const currentCard = ref(0) // Changed to start at 0
 const questions = ref([])
 const selectedAnswers = reactive({})
 
 onMounted(() => {
-    // Load questions and scale from localStorage
     const savedQuestions = localStorage.getItem('wizardQuestions')
     const scaleValues = localStorage.getItem('scaleValues')
+    const formHeader = localStorage.getItem('formHeader')
     
-    if (savedQuestions && scaleValues) {
+    if (savedQuestions && scaleValues && formHeader) {
+        // Create initial welcome card
+        const welcomeCard = {
+            id: 0,
+            title: "",
+            content: formHeader,
+            showPrevious: false,
+            showNext: false, // We'll use a special button instead
+            type: 'welcome'
+        }
+
         // Transform saved questions into the wizard format
         const loadedQuestions = JSON.parse(savedQuestions).map((question, index) => ({
             id: index + 1,
             title: "Complejidad",
             content: question,
-            showPrevious: index !== 0,
+            showPrevious: true,
             showNext: true,
-            answers: JSON.parse(scaleValues) // Use the saved scale values
+            answers: JSON.parse(scaleValues)
         }))
 
         // Add the summary card
-        loadedQuestions.push({
+        const summaryCard = {
             id: loadedQuestions.length + 1,
             type: 'summary',
             title: "Resumen de Story Points",
@@ -116,9 +129,10 @@ onMounted(() => {
             showPrevious: false,
             showNext: false,
             answers: []
-        })
+        }
 
-        questions.value = loadedQuestions
+        // Combine all cards
+        questions.value = [welcomeCard, ...loadedQuestions, summaryCard]
     }
 })
 
@@ -385,5 +399,27 @@ button:hover {
     background: #006647;
     color: white;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.welcome-card {
+    text-align: center;
+}
+
+.start-button {
+    background-color: #006647;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 2rem;
+}
+
+.start-button:hover {
+    background-color: #007857;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 </style>
