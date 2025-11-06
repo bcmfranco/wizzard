@@ -1,5 +1,9 @@
 <template>
     <div class="wizard-container">
+        <NuxtLink to="/questions" class="settings-button">
+            ⚙️
+        </NuxtLink>
+        
         <!-- Progress bar -->
         <div class="progress-bar">
             <div 
@@ -81,12 +85,42 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
-import { wizardQuestions } from '../data/questions'
+import { ref, reactive, onMounted } from 'vue'
 
 const currentCard = ref(1)
-const questions = ref(wizardQuestions)
+const questions = ref([])
 const selectedAnswers = reactive({})
+
+onMounted(() => {
+    // Load questions and scale from localStorage
+    const savedQuestions = localStorage.getItem('wizardQuestions')
+    const scaleValues = localStorage.getItem('scaleValues')
+    
+    if (savedQuestions && scaleValues) {
+        // Transform saved questions into the wizard format
+        const loadedQuestions = JSON.parse(savedQuestions).map((question, index) => ({
+            id: index + 1,
+            title: "Complejidad",
+            content: question,
+            showPrevious: index !== 0,
+            showNext: true,
+            answers: JSON.parse(scaleValues) // Use the saved scale values
+        }))
+
+        // Add the summary card
+        loadedQuestions.push({
+            id: loadedQuestions.length + 1,
+            type: 'summary',
+            title: "Resumen de Story Points",
+            content: "Total de puntos acumulados",
+            showPrevious: false,
+            showNext: false,
+            answers: []
+        })
+
+        questions.value = loadedQuestions
+    }
+})
 
 const nextCard = () => {
     if (currentCard.value < questions.value.length) {
@@ -196,7 +230,7 @@ button:hover {
     margin: 1.5rem 0;
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5 , 1fr);
     gap: 1rem;
 }
 
@@ -324,5 +358,32 @@ button:hover {
 .refresh-button:hover {
     background-color: #007857 !important;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+}
+
+.settings-button {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: white;
+    color: #006647;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 2px solid #006647;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    z-index: 1000;
+}
+
+.settings-button:hover {
+    transform: rotate(45deg);
+    background: #006647;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 </style>
