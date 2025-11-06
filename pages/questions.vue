@@ -1,82 +1,86 @@
 <template>
-    <div class="questions-container">
-        <!-- Header input -->
-        <div class="header-section">
-            <label for="form-header">Encabezado del formulario:</label>
-            <input 
-                type="text" 
-                id="form-header"
-                v-model="formHeader"
-                placeholder="Ingrese el título o descripción inicial..."
-                class="header-input"
-            >
-        </div>
-
-        <!-- Scale selector -->
-        <div class="scale-selector">
-            <label for="scale-type">Escala de respuestas:</label>
-            <select 
-                id="scale-type" 
-                v-model="selectedScale" 
-                class="scale-select"
-            >
-                <option value="fibonacci">Fibonacci (1, 2, 3, 5, 8)</option>
-                <option value="exponential">Exponencial (1, 2, 4, 8, 16)</option>
-                <option value="linear">Lineal (0, 1, 2, 3, 4)</option>
-            </select>
-        </div>
-
-        <!-- Input area -->
-        <div class="input-area">
-            <input 
-                type="text" 
-                v-model="newQuestion"
-                placeholder="Escriba una nueva pregunta..."
-                @keyup.enter="addQuestion"
-                class="question-input"
-            >
-            <button @click="addQuestion" class="add-button">
-                <span>+</span>
-            </button>
-        </div>
-
-        <!-- Questions list -->
-        <div class="questions-list">
-            <div 
-                v-for="(question, index) in questions" 
-                :key="index"
-                class="question-item"
-            >
-                <span class="question-text">{{ question }}</span>
-                <button 
-                    @click="removeQuestion(index)"
-                    class="remove-button"
+    <div>
+        <Header />
+        <div class="questions-container">
+            <!-- Header input -->
+            <div class="header-section">
+                <label for="form-header">Encabezado del formulario:</label>
+                <input 
+                    type="text" 
+                    id="form-header"
+                    v-model="formHeader"
+                    placeholder="Ingrese el título o descripción inicial..."
+                    class="header-input"
                 >
-                    <span>×</span>
+            </div>
+
+            <!-- Scale selector -->
+            <div class="scale-selector">
+                <label for="scale-type">Escala de respuestas:</label>
+                <select 
+                    id="scale-type" 
+                    v-model="selectedScale" 
+                    class="scale-select"
+                >
+                    <option value="fibonacci">Fibonacci (1, 2, 3, 5, 8)</option>
+                    <option value="exponential">Exponencial (1, 2, 4, 8, 16)</option>
+                    <option value="linear">Lineal (0, 1, 2, 3, 4)</option>
+                </select>
+            </div>
+
+            <!-- Input area -->
+            <div class="input-area">
+                <input 
+                    type="text" 
+                    v-model="newQuestion"
+                    placeholder="Escriba una nueva pregunta..."
+                    @keyup.enter="addQuestion"
+                    class="question-input"
+                >
+                <button @click="addQuestion" class="add-button">
+                    <span>+</span>
                 </button>
             </div>
-        </div>
 
-        <!-- Save and Navigate buttons -->
-        <div class="buttons-area">
-            <button @click="saveQuestions" class="save-button" v-if="questions.length > 0">
-                Guardar cambios
-            </button>
-            <NuxtLink to="/forms" class="form-button">
-                Ir al formulario
-            </NuxtLink>
-        </div>
+            <!-- Questions list -->
+            <div class="questions-list">
+                <div 
+                    v-for="(question, index) in questions" 
+                    :key="index"
+                    class="question-item"
+                >
+                    <span class="question-text">{{ question }}</span>
+                    <button 
+                        @click="removeQuestion(index)"
+                        class="remove-button"
+                    >
+                        <span>×</span>
+                    </button>
+                </div>
+            </div>
 
-        <p class="info-text">Los cambios serán guardados en el navegador y solamente estarán disponibles acá</p>
+            <!-- Save and Navigate buttons -->
+            <div class="buttons-area">
+                <button @click="saveQuestions" class="save-button" v-if="questions.length > 0">
+                    Guardar cambios
+                </button>
+                <NuxtLink to="/forms" class="form-button">
+                    Ir al formulario
+                </NuxtLink>
+            </div>
 
-        <div v-if="showNotification" class="notification">
-            Los cambios fueron guardados.
+            <p class="info-text">Los cambios serán guardados en el navegador y solamente estarán disponibles acá</p>
+
+            <div v-if="showNotification" class="notification">
+                Los cambios fueron guardados.
+            </div>
         </div>
     </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import Header from '~/components/Header.vue'
 
 const newQuestion = ref('')
 const questions = ref([])

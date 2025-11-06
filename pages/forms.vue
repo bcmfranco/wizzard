@@ -1,94 +1,98 @@
 <template>
-    <div class="wizard-container">
-        <NuxtLink to="/questions" class="settings-button">
-            ⚙️
-        </NuxtLink>
+    <div>
+        <Header />
+        <div class="wizard-container">
+            <NuxtLink to="/questions" class="settings-button">
+                ⚙️
+            </NuxtLink>
 
-        <div 
-            v-for="question in questions" 
-            :key="question.id"
-            class="card" 
-            :class="{ 
-                active: currentCard === question.id,
-                'answered': isQuestionAnswered(question.id),
-                'welcome-card': question.type === 'welcome'
-            }"
-        >
-            <!-- Welcome card content -->
-            <template v-if="question.type === 'welcome'">
-                <p class="question-content">{{ question.content }}</p>
-                <div class="button-container">
-                    <button 
-                        @click="currentCard++"
-                        class="start-button"
-                    >
-                        Comenzar
-                    </button>
-                </div>
-            </template>
-
-            <!-- Regular card content -->
-            <template v-else-if="!question.type">
-                <p class="question-content">{{ question.content }}</p>
-                <h2 class="question-title">{{ question.title }}</h2>
-                
-                <div class="answers-container">
-                    <label 
-                        v-for="(answer, index) in question.answers" 
-                        :key="index"
-                        class="answer-option"
-                        :for="`answer-${question.id}-${index}`"
-                        @click="handleAnswerSelect(question)"
-                    >
-                        <input 
-                            type="radio" 
-                            :id="`answer-${question.id}-${index}`"
-                            :name="`question-${question.id}`"
-                            :value="answer"
-                            v-model="selectedAnswers[question.id]"
+            <div 
+                v-for="question in questions" 
+                :key="question.id"
+                class="card" 
+                :class="{ 
+                    active: currentCard === question.id,
+                    'answered': isQuestionAnswered(question.id),
+                    'welcome-card': question.type === 'welcome'
+                }"
+            >
+                <!-- Welcome card content -->
+                <template v-if="question.type === 'welcome'">
+                    <p class="question-content">{{ question.content }}</p>
+                    <div class="button-container">
+                        <button 
+                            @click="currentCard++"
+                            class="start-button"
                         >
-                        <span>{{ answer }}</span>
-                    </label>
-                </div>
+                            Comenzar
+                        </button>
+                    </div>
+                </template>
 
-                <div class="button-container">
-                    <button 
-                        v-if="question.showPrevious"
-                        @click="previousCard"
-                    >
-                        Volver
-                    </button>
-                    <button 
-                        v-if="question.showNext"
-                        @click="nextCard"
-                    >
-                        Saltear
-                    </button>
-                </div>
-            </template>
+                <!-- Regular card content -->
+                <template v-else-if="!question.type">
+                    <p class="question-content">{{ question.content }}</p>
+                    <h2 class="question-title">{{ question.title }}</h2>
+                    
+                    <div class="answers-container">
+                        <label 
+                            v-for="(answer, index) in question.answers" 
+                            :key="index"
+                            class="answer-option"
+                            :for="`answer-${question.id}-${index}`"
+                            @click="handleAnswerSelect(question)"
+                        >
+                            <input 
+                                type="radio" 
+                                :id="`answer-${question.id}-${index}`"
+                                :name="`question-${question.id}`"
+                                :value="answer"
+                                v-model="selectedAnswers[question.id]"
+                            >
+                            <span>{{ answer }}</span>
+                        </label>
+                    </div>
 
-            <!-- Summary card content -->
-            <template v-else-if="question.type === 'summary'">
-                <h2 class="summary-title">{{ question.title }}</h2>
-                <div class="total-sum">
-                    <strong>Story Points:</strong>
-                    <span>{{ calculateTotalSum() }}</span>
-                </div>
-                <div class="button-container">
-                    <button 
-                        class="refresh-button"
-                        @click="refreshForm"
-                    >
-                        Realizar nuevamente
-                    </button>
-                </div>
-            </template>
+                    <div class="button-container">
+                        <button 
+                            v-if="question.showPrevious"
+                            @click="previousCard"
+                        >
+                            Volver
+                        </button>
+                        <button 
+                            v-if="question.showNext"
+                            @click="nextCard"
+                        >
+                            Saltear
+                        </button>
+                    </div>
+                </template>
+
+                <!-- Summary card content -->
+                <template v-else-if="question.type === 'summary'">
+                    <h2 class="summary-title">{{ question.title }}</h2>
+                    <div class="total-sum">
+                        <strong>Story Points:</strong>
+                        <span>{{ calculateTotalSum() }}</span>
+                    </div>
+                    <div class="button-container">
+                        <button 
+                            class="refresh-button"
+                            @click="refreshForm"
+                        >
+                            Realizar nuevamente
+                        </button>
+                    </div>
+                </template>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup>
 import { ref, reactive, onMounted } from 'vue'
+import Header from '~/components/Header.vue'
 
 const currentCard = ref(0) // Changed to start at 0
 const questions = ref([])

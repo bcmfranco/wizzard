@@ -1,20 +1,27 @@
 <template>
-  <div class="home-container">
-    <div class="content">
-      <h1 class="title">Planning Poker</h1>
-      <p class="description">Estima tus historias de usuario de manera ágil y efectiva</p>
-      
-      <div class="buttons">
-        <NuxtLink to="/forms" class="action-button primary">
-          Comenzar estimación
-        </NuxtLink>
-        <NuxtLink to="/questions" class="action-button secondary">
-          Configurar preguntas
-        </NuxtLink>
-      </div>
+    <div>
+        <Header />
+        <div class="home-container">
+            <div class="content">
+                <h1 class="title">Flowquest</h1>
+                <p class="description">Estima tus historias de usuario de manera ágil y efectiva</p>
+
+                <div class="buttons">
+                    <NuxtLink to="/forms" class="action-button primary">
+                        Comenzar estimación
+                    </NuxtLink>
+                    <NuxtLink to="/questions" class="action-button secondary">
+                        Configurar preguntas
+                    </NuxtLink>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
+
+<script setup>
+import Header from '~/components/Header.vue'
+</script>
 
 <style scoped>
 .home-container {
@@ -22,7 +29,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #01d595;
+    background-color: #8bdc65;
     padding: 2rem;
 }
 
@@ -58,13 +65,13 @@
 }
 
 .action-button.primary {
-    background-color: #006647;
-    color: white;
+    background-color: white;
+    color: #8bdc65;
 }
 
 .action-button.secondary {
     background-color: white;
-    color: #006647;
+    color: #8bdc65;
 }
 
 .action-button:hover {
